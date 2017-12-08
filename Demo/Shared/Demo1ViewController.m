@@ -158,6 +158,55 @@
 		}
 	}
 }
+- (IBAction)lzyUsageClicked:(UIButton *)sender {
+    UIColor *backgroundColor = [UIColor whiteColor];
+    UIColor *textColor = RGBA(187, 187, 187, 1);;
+    UIColor *titleColor = RGBA(51, 51, 51, 1);
+    NSString *str = [NSString stringWithFormat: @"点击任意新闻，按需求阅读全文可\n获得奖励一次，本日可用奖励%@次" ,[LzyUser sharedInstance].data.times.times ];
+    
+    NSString *title = str;
+    
+    CMPopTipView *popTipView = [[CMPopTipView alloc] initWithTitle:title message:@"\n奖励正常发放中"];
+    popTipView.bubblePaddingX = 10;
+    popTipView.bubblePaddingY = 10;
+    popTipView.shouldEnforceCustomViewPadding = YES;
+    //    popTipView.sidePadding = 10;
+    //    popTipView.topMargin = 10;
+    UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 200 * LZYFitX, 26 * LZYFitX)];
+    iv.image = [Utility imageWithColor:[UIColor whiteColor] andSize:iv.frame.size];
+    popTipView.customView = iv;
+    
+    popTipView.delegate = self;
+    if (backgroundColor && ![backgroundColor isEqual:[NSNull null]]) {
+        popTipView.backgroundColor = backgroundColor;
+    }
+    if (textColor && ![textColor isEqual:[NSNull null]]) {
+        popTipView.textColor = textColor;
+    }
+    if (textColor && ![textColor isEqual:[NSNull null]]) {
+        popTipView.titleColor = titleColor;
+    }
+    popTipView.titleFont = Font_Medium(15);
+    popTipView.textFont = Font_Medium(12);
+    popTipView.borderColor = [UIColor clearColor];
+    popTipView.borderWidth = 0.5;
+    
+    //    popTipView.animation = arc4random() % 2;
+    //    popTipView.has3DStyle = (BOOL)(arc4random() % 2);
+    popTipView.hasShadow = YES;
+    
+    popTipView.dismissTapAnywhere = YES;
+    //    [popTipView autoDismissAnimated:YES atTimeInterval:3.0];
+    
+    if ([sender isKindOfClass:[UIView class]]) {
+        
+        [popTipView presentPointingAtView:sender inView:self.view animated:YES];
+    }
+    [self.visiblePopTipViews addObject:popTipView];
+    self.currentPopTipViewTarget = sender;
+    
+    
+}
 
 - (void)viewDidLoad
 {
