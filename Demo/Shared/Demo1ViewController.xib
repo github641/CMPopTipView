@@ -120,9 +120,8 @@
                         <action selector="buttonAction:" destination="-1" eventType="touchUpInside" id="29"/>
                     </connections>
                 </button>
-                <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLr-wh-Uqz">
-                    <rect key="frame" x="268" y="188" width="64" height="30"/>
-                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="oLr-wh-Uqz">
+                    <rect key="frame" x="268" y="185" width="64" height="30"/>
                     <state key="normal" title="lzyUsage"/>
                     <connections>
                         <action selector="lzyUsageClicked:" destination="-1" eventType="touchUpInside" id="xOe-s4-B54"/>
@@ -136,6 +135,7 @@
                 <constraint firstAttribute="centerY" secondItem="4" secondAttribute="centerY" id="3g4-FP-sVj"/>
                 <constraint firstItem="18" firstAttribute="top" secondItem="22" secondAttribute="bottom" constant="13" id="434-bk-7i2"/>
                 <constraint firstAttribute="trailing" secondItem="28" secondAttribute="trailing" constant="20" id="638-qe-yXG"/>
+                <constraint firstItem="oLr-wh-Uqz" firstAttribute="centerY" secondItem="1" secondAttribute="centerY" constant="-100" id="6F9-lL-3IB"/>
                 <constraint firstItem="5" firstAttribute="top" secondItem="28" secondAttribute="bottom" constant="24" id="7jv-WE-r9r"/>
                 <constraint firstItem="20" firstAttribute="top" secondItem="1" secondAttribute="top" constant="20" id="9W5-gc-wbG"/>
                 <constraint firstItem="5" firstAttribute="top" secondItem="26" secondAttribute="bottom" constant="59" id="FqN-Fr-MYT"/>
@@ -146,6 +146,7 @@
                 <constraint firstItem="20" firstAttribute="leading" secondItem="1" secondAttribute="leading" constant="20" id="mF2-Sc-Qrw"/>
                 <constraint firstItem="5" firstAttribute="leading" secondItem="1" secondAttribute="leading" id="nJe-h1-khB"/>
                 <constraint firstAttribute="centerX" secondItem="24" secondAttribute="centerX" id="pPQ-wn-ZK5"/>
+                <constraint firstItem="oLr-wh-Uqz" firstAttribute="centerX" secondItem="1" secondAttribute="centerX" id="rvO-vo-36r"/>
                 <constraint firstItem="24" firstAttribute="top" secondItem="4" secondAttribute="bottom" constant="44.5" id="xeh-FJ-rRH"/>
                 <constraint firstItem="22" firstAttribute="top" secondItem="1" secondAttribute="top" constant="40" id="yKg-RJ-vEX"/>
             </constraints>

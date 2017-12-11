@@ -26,7 +26,46 @@
 
 #import "Demo1ViewController.h"
 
+#define RGBA(R/*红*/, G/*绿*/, B/*蓝*/, A/*透明*/) \
+[UIColor colorWithRed:R/255.f green:G/255.f blue:B/255.f alpha:A]
 #define foo4random() (1.0 * (arc4random() % ((unsigned)RAND_MAX + 1)) / RAND_MAX)
+#define LzyReferenceW 375.0
+#define LzyReferenceH 667.0// 注意修改参考比例
+#define LZYFitX (LzyScreenWidth / LzyReferenceW)
+#define LZYFitY (LzyScreenHeight / LzyReferenceH)
+#define LzyScreenWidth      CGRectGetWidth([UIScreen mainScreen].bounds)
+#define LzyScreenHeight      CGRectGetHeight([UIScreen mainScreen].bounds)
+
+
+//字号宏定义，不要求字体粗细等
+//#define FONT_SIZE(size) ([UIFont systemFontOfSize:FontSize(size)])
+
+/**
+ *  字号适配
+ */
+static inline CGFloat FontSize(CGFloat fontSize){
+    if (LzyScreenWidth == 320) {
+        return fontSize - 2;
+    }else if (LzyScreenWidth == 375){
+        return fontSize;
+    }else{
+        return fontSize + 2;
+    }
+}
+/* lzy171118注:
+ 字体宏定义，返回特定字体粗细和字号适配
+ */
+#define Font_Regular(s)  (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")?[UIFont fontWithName:@"PingFangSC-Regular" size:FontSize(s)]:[UIFont fontWithName:@"HelveticaNeue" size:FontSize(s)])
+
+#define Font_Light(s)   (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")?[UIFont fontWithName:@"PingFangSC-Light" size:FontSize(s)]:[UIFont fontWithName:@"HelveticaNeue-Light" size:FontSize(s)])
+
+#define Font_Medium(s)   (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")?[UIFont fontWithName:@"PingFangSC-Medium" size:FontSize(s)]:[UIFont fontWithName:@"HelveticaNeue-Medium" size:FontSize(s)])
+
+#define Font_Semibold(s)   (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")?[UIFont fontWithName:@"PingFangSC-Semibold" size:FontSize(s)]:[UIFont fontWithName:@"HelveticaNeue-Bold" size:FontSize(s)])
+
+#define Font_Thin(s)   (SYSTEM_VERSION_GREATER_THAN_OR_EQUAL_TO(@"9.0")?[UIFont fontWithName:@"PingFangSC-Thin" size:FontSize(s)]:[UIFont fontWithName:@"HelveticaNeue-Thin" size:FontSize(s)])
+
+
 
 #pragma mark - Private interface
 
@@ -42,6 +81,20 @@
 #pragma mark - Implementation
 
 @implementation Demo1ViewController
+
+- (UIImage *)imageWithColor:(UIColor *)color andSize:(CGSize)size
+{
+    CGRect rect = CGRectMake(0.0f, 0.0f, size.width, size.height);
+    UIGraphicsBeginImageContext(rect.size);
+    CGContextRef context = UIGraphicsGetCurrentContext();
+    CGContextSetFillColorWithColor(context, [color CGColor]);
+    CGContextFillRect(context, rect);
+    UIImage *image = UIGraphicsGetImageFromCurrentImageContext();
+    UIGraphicsEndImageContext();
+    return image;
+}
+
+
 
 - (void)dismissAllPopTipViews
 {
@@ -162,7 +215,8 @@
     UIColor *backgroundColor = [UIColor whiteColor];
     UIColor *textColor = RGBA(187, 187, 187, 1);;
     UIColor *titleColor = RGBA(51, 51, 51, 1);
-    NSString *str = [NSString stringWithFormat: @"点击任意新闻，按需求阅读全文可\n获得奖励一次，本日可用奖励%@次" ,[LzyUser sharedInstance].data.times.times ];
+    NSString *str;
+               str = [NSString stringWithFormat: @"点击任意新闻，按需求阅读全文可\n获得奖励一次，本日可用奖励%@次" ,@"3"];
     
     NSString *title = str;
     
@@ -173,7 +227,7 @@
     //    popTipView.sidePadding = 10;
     //    popTipView.topMargin = 10;
     UIImageView *iv = [[UIImageView alloc] initWithFrame:CGRectMake(20, 20, 200 * LZYFitX, 26 * LZYFitX)];
-    iv.image = [Utility imageWithColor:[UIColor whiteColor] andSize:iv.frame.size];
+    iv.image = [self imageWithColor:[UIColor whiteColor] andSize:iv.frame.size];
     popTipView.customView = iv;
     
     popTipView.delegate = self;
@@ -186,8 +240,8 @@
     if (textColor && ![textColor isEqual:[NSNull null]]) {
         popTipView.titleColor = titleColor;
     }
-    popTipView.titleFont = Font_Medium(15);
-    popTipView.textFont = Font_Medium(12);
+    popTipView.titleFont = [UIFont systemFontOfSize:15];
+    popTipView.textFont = [UIFont systemFontOfSize:12];
     popTipView.borderColor = [UIColor clearColor];
     popTipView.borderWidth = 0.5;
     
