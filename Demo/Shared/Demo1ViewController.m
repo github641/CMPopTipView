@@ -211,6 +211,8 @@ static inline CGFloat FontSize(CGFloat fontSize){
 		}
 	}
 }
+
+#warning liu zhi yi  usage
 - (IBAction)lzyUsageClicked:(UIButton *)sender {
     UIColor *backgroundColor = [UIColor whiteColor];
     UIColor *textColor = RGBA(187, 187, 187, 1);;
